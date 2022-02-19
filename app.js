@@ -39,7 +39,7 @@ app.use(api+'/pages',pageRouter)
 app.use(api+ '/' ,addProductRouter)
 app.use('/' ,addProductRouter)
 
-mongoose.connect('mongodb://localhost/VUECRUD',{
+mongoose.connect(process.env.MONGO_URI,{
     useNewUrlParser: true,
     useUnifiedTopology: true,
 

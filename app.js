@@ -37,6 +37,7 @@ app.use(api+'/orders',ordersRouter)
 app.use(api+'/store',storeRouter)
 app.use(api+'/pages',pageRouter)
 app.use(api+ '/' ,addProductRouter)
+app.use('/' ,addProductRouter)
 
 mongoose.connect('mongodb://localhost/VUECRUD',{
     useNewUrlParser: true,

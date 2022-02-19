@@ -68,5 +68,8 @@ router.post('/addproduct' ,uploadOptions.single('image'), async (req,res) =>{
 router.get('/test', (req,res) => {
     res.json({message: "Hello World!"})
 })
+router.get('/', (req,res) => {
+    res.json({message: "Hello World!"})
+})
 
 module.exports = router 

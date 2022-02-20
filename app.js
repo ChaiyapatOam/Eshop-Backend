@@ -50,13 +50,6 @@ mongoose.connect(process.env.MONGO_URI,{
 .catch((err)=>{
     console.log(err);
 })
-const jwt_decode = require('jwt-decode')
-// import jwt_decode from 'jwt-decode';
-
-var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWY1ZjllOTczM2VlZjQ0ODI3NjkyYzAiLCJ1c2VyU3RvcmUiOiJLSyIsImlhdCI6MTY0MzUxMDU1NX0.WS7nbwcQ7j8JLtSaQy7_080vnausHxpGb48bDu2VFDk';
-
-var decoded = jwt_decode(token);
-// console.log(decoded);
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT,()=>{

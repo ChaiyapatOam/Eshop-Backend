@@ -18,9 +18,9 @@ router.get("/:store", (req, res) => {
   Store.find({ $and: [{ store: s }, { active: true }] }, (error, products) => {
     if (error) console.log(error);
     res.json(products);
-  }).populate({ path: "products" });
+  }).populate({ path: "products" }).select("-passwordHash -email -users -orders")
 });
-router.get("/product/:store", (req, res) => {
+router.get("/admin/:store", (req, res) => {
   const s = req.params.store;
   Store.find({ store: s } , (error, products) => {
     if (error) console.log(error);
@@ -63,23 +63,11 @@ router.post("/", async (req, res) => {
 
   res.send(store);
 });
-// add product in store
-router.put("/add/:store", async (req, res) => {
-  const s = req.params.store;
-  const store = await Store.findOneAndUpdate(
-    { store: s },
-    { $push: { products: req.body.products } },
-    { new: true }
-  );
-  if (!store) return res.status(404).status.send("The store cannot be created");
 
-  res.send(store);
-});
 //Login  admin
 router.post("/admin/login", async (req, res) => {
   try {
     const store = await Store.findOne({ email: req.body.email });
-    console.log(store);
     if (!store) {
       return res.status(400).send("The store was not found");
     }
@@ -95,7 +83,7 @@ router.post("/admin/login", async (req, res) => {
       var decoded = jwt_decode(token);
       res.status(200).send({ email: store.email, token: token, data: decoded });
     } else {
-      res.status(400).send("password is wrong");
+      res.status(401).send("Login fail")
     }
   } catch (err) {
     console.log(err);

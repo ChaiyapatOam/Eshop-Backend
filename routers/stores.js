@@ -20,12 +20,20 @@ router.get("/:store", (req, res) => {
     res.json(products);
   }).populate({ path: "products" }).select("-passwordHash -email -users -orders")
 });
-router.get("/admin/:store", (req, res) => {
+router.get("/admin/product/:store", (req, res) => {
   const s = req.params.store;
   Store.find({ store: s } , (error, products) => {
     if (error) console.log(error);
     res.json(products);
   }).populate({ path: "products" });
+});
+//GET users in store
+router.get("/admin/users/:store", (req, res) => {
+  const s = req.params.store;
+  Store.find({ store: s } , (error, users) => {
+    if (error) console.log(error);
+    res.json(users);
+  }).populate({ path: "users" });
 });
 // update store
 router.put("/:store", async (req, res) => {

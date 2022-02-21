@@ -13,7 +13,7 @@ router.get("/:store", async (req, res) => {
     if (error) console.log(error);
     res.json(order);
   })
-    .populate("user", "name")
+    .populate("user")
     .populate({
       path: "orderItems",
       populate: {
@@ -24,6 +24,7 @@ router.get("/:store", async (req, res) => {
     .sort({ DateOrder: -1 });
 });
 
+/*
 router.get("/:id", async (req, res) => {
   const order = await Order.findById(req.params.id)
     .populate("user", "name")
@@ -89,6 +90,7 @@ router.post("/", async (req, res) => {
       {new: true}
       )
 }); */
+
 // POST Cart Order
 router.post("/", async (req, res) => {
   const phone = req.body.phone;
@@ -185,6 +187,7 @@ router.delete("/:id", (req, res) => {
       return res.status(500).json({ success: false, err: err });
     });
 });
+
 //Get Total Sale // Not Use
 router.get("/get/totalsale", async (req, res) => {
   const TotalSale = await Order.aggregate([
@@ -209,6 +212,7 @@ router.put("/get/total", async (req, res) => {
   }
   res.send({ total: TotalSale.pop().TotalSale });
 });
+
 //Count Order
 router.get("/get/count", async (req, res) => {
   const store = req.body.store;
@@ -221,6 +225,7 @@ router.get("/get/count", async (req, res) => {
     orderCount: orderCount,
   });
 });
+
 //Get User Order
 router.get("/get/userorder/:userid", async (req, res) => {
   const userorderList = await Order.find({ user: req.params.userid })

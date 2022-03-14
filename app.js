@@ -19,6 +19,7 @@ const userRouter = require('./routers/users')
 const ordersRouter = require('./routers/orders')
 const storeRouter = require('./routers/stores')
 const addProductRouter = require('./routers/add_update_product')
+const reset_passwordRouter = require('./routers/reset_password')
 const pageRouter = require('./routers/pages')
 //Helper
 const authJwt = require('./helpers/jwt')
@@ -37,6 +38,7 @@ app.use(api+'/orders',ordersRouter)
 app.use(api+'/store',storeRouter)
 app.use(api+'/pages',pageRouter)
 app.use(api+ '/' ,addProductRouter)
+app.use(api+ '/' ,reset_passwordRouter)
 app.use('/' ,addProductRouter)
 
 mongoose.connect(process.env.MONGO_URI,{

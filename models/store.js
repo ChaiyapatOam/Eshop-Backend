@@ -21,6 +21,10 @@ const storeSchema = mongoose.Schema({
     phone:{
         type: String
     },
+    categories:[{
+        type:String,
+        default:["ทั่วไป","เครื่องดื่ม","ขนม"]
+    }],
     products:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product'

@@ -1,8 +1,19 @@
 const { User } = require("../models/user");
+const {Store} = require("../models/store")
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
+function formatPhoneNumber(phoneNumberString) {
+  phoneNumberString = phoneNumberString?.split('-')
+  var cleaned = ('' + phoneNumberString).replace(/\D/g, '')
+  var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/)
+  if (match) {
+    return '' + match[1] + '-' + match[2] + '-' + match[3]
+  }
+  return null
+}
+
 //GET All user
 router.get("/", async (req, res) => {
   const userList = await User.find();
@@ -15,7 +26,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:store", async (req, res) => {
   const s = req.params.store;
-  Store.find({ store: s }, (error, user) => {
+  User.find({ store: s }, (error, user) => {
     if (error) console.log(error);
     res.json(user);
   });
@@ -23,7 +34,7 @@ router.get("/:store", async (req, res) => {
 });
 //get user by phone
 router.put("/", async (req, res) => {
-  const phone = req.body.phone;
+  const phone = formatPhoneNumber(req.body.phone);
   User.findOne({ phone: phone }, (error, user) => {
     if (error) console.log(error);
     if (user == null) res.send([]);

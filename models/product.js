@@ -9,11 +9,8 @@ const productSchema = mongoose.Schema({
     },
     image:{
         type:String,
-        required:true
+        default: "https://www.casio.com/content/dam/casio/product-info/locales/th/th/label-printer/option/product/X/XR/XR1/XR-18FOE/assets/noimage.jpg"
     },
-    images:[{
-        type:String
-    }],
     price:{
         type:Number,
         required:true
@@ -30,9 +27,9 @@ const productSchema = mongoose.Schema({
     store: {
         type: String
     },
-    isFeatured:{
+    active:{
         type:Boolean,
-        default:false
+        default: true
     },
 })
 productSchema.virtual('id').get(function() {

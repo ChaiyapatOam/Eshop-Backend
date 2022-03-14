@@ -1,10 +1,5 @@
 const mongoose = require('mongoose')
 const orderSchema = mongoose.Schema({
-    orderItems:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'OrderItem',
-        required: true
-    }],
     address:{
         type: String,
         required: true
@@ -18,10 +13,7 @@ const orderSchema = mongoose.Schema({
     },
     status: {
         type: String,
-        default: 'Pending'
-    },
-    TotalPrice: {
-        type: Number,
+        default: 'รอจัดส่ง'
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -39,6 +31,10 @@ const orderSchema = mongoose.Schema({
     },
     total: {
         type: Number
+    },
+    tracking:{
+        type : String,
+        default: ''
     }
 })
 orderSchema.virtual('id').get(function() {

@@ -46,7 +46,7 @@ router.post('/addproduct' ,uploadOptions.single('image'), async (req,res) =>{
         price: req.body.price,
         category: req.body.category,
         stock : req.body.stock,
-        isFeatured : req.body.isFeatured,
+        active : req.body.active,
     })
     product = await product.save()
     if(!product)
